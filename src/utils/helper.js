@@ -7,7 +7,10 @@ export const sendResponse = (res, status, message, payload = null) => {
 }
 
 export const sendError = (res, message, statusCode = 500) => {
-    return sendResponse(res, statusCode, message);
+    return res.status(statusCode).json({
+        status: statusCode,
+        message,
+    });
 }
 
 export const sendSuccess = (res, message, payload = null) => {
