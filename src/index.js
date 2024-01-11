@@ -11,13 +11,13 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "http://localhost:3000"],
+    origin: process.env.CLIENT_URL,
   })
 );
 app.use(cookieParser());
 app.use(express.json());
 app.use(router);
 
-app.listen(5001, () => {
-  console.log("Server successfully started on port 5001");
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
