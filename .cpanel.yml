@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/u1566281/public_html/
+    - export DEPLOYPATH=/home/u1566281/public_html/mpmart.ecodify.id/
     - /bin/cp -R * $DEPLOYPATH
     
