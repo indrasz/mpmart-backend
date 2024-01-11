@@ -2,12 +2,18 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function createUser(data) {
+export const createUser = async (data) => {
     return prisma.user.create({ data });
 }
 
-async function findUserByUsername(username) {
+export const findUserByUsername = async (username) => {
     return prisma.user.findUnique({ where: { username } });
 }
 
-export { createUser, findUserByUsername };
+export const findUserByEmail = async (email) => {
+    return prisma.user.findUnique({ where: { email } });
+}
+
+export const findUserByNim = async (nim) => {
+    return prisma.user.findUnique({ where: { nim } });
+}

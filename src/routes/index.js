@@ -1,9 +1,9 @@
 import express from 'express';
-import { register, login } from '../controllers/authController.js';
+import { register, login } from '../controllers/authController.js'
 
 const router = express.Router();
 
-router.post('/register', register);
-router.post('/login', login);
+router.post('/mp-mart/api/v1/auth/register', register);
+router.post('/mp-mart/api/v1/auth/login', login);
 
 export default router;

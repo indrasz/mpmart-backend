@@ -19,5 +19,5 @@ app.use(express.json());
 app.use(router);
 
 app.listen(5001, () => {
-  console.log("Server berhasil berjalan");
+  console.log("Server successfully started on port 5001");
 });
