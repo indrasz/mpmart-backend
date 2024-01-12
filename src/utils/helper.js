@@ -6,12 +6,9 @@ export const sendResponse = (res, status, message, payload = null) => {
     });
 }
 
-export const sendError = (res, message, statusCode = 500) => {
-    return res.status(statusCode).json({
-        status: statusCode,
-        message,
-    });
-}
+export const sendError = (res, message, status = 500) => {
+    res.status(status).json({ status, message });
+};
 
 export const sendSuccess = (res, message, payload = null) => {
     return sendResponse(res, 200, message, payload);
