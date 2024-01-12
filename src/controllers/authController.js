@@ -50,6 +50,7 @@ export const login = async (req, res) => {
         if (!user) {
             return sendUnauthorized(res, 'Invalid username or password');
         }
+
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid username or password' });
@@ -58,11 +59,35 @@ export const login = async (req, res) => {
         const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
         const refreshToken = jwt.sign({ id: user.id, username: user.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 
-        return sendSuccess(res, 'Login successfully', { accessToken, refreshToken });
+        const userData = {
+            id: user.id,
+            username: user.username,
+            email: user.email,  
+        };
+
+        return sendSuccess(res, 'Login successfully', { accessToken, refreshToken, user: userData });
     } catch (error) {
         console.error(error);
         return sendError(res, 'Internal Server Error');
     }
 }
+
+export const logout = (req, res) => {
+    const token = req.header('Authorization') || req.cookies.accessToken;
+
+    if (!token) {
+        return sendUnauthorized(res, 'No token provided');
+    }
+
+    try {
+        res.clearCookie('accessToken');
+        res.clearCookie('refreshToken');
+
+        return sendSuccess(res, 'Logout successfully');
+    } catch (error) {
+        console.error(error);
+        return sendError(res, 'Internal Server Error');
+    }
+};
 
 // export { register, login };
