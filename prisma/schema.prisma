@@ -37,11 +37,12 @@ model Product {
 }
 
 model Category {
-  id         String    @id @default(uuid())
-  name       String
-  products   Product[]
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  id             String    @id @default(uuid())
+  name           String
+  icon_thumbnail String
+  products       Product[]
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
 }
 
 model Discount {

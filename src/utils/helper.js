@@ -21,3 +21,7 @@ export const sendUnauthorized =(res, message = 'Unauthorized') => {
 export const sendBadRequest = (res, message = 'Bad Request') => {
     return sendError(res, message, 400);
 }
+
+export const sendNotFound = (res, message) => {
+    return res.status(404).json({ status: 404, message });
+};
