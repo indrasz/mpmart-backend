@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { createUser, findUserByUsername, findUserByEmail, findUserByNim } from '../models/User.js';
-import { sendUnauthorized, sendSuccess, sendError } from '../utils/helper.js';
+import { sendUnauthorized, sendSuccess, sendError, sendBadRequest } from '../utils/helper.js';
 import jwt from 'jsonwebtoken';
 
 export const register = async (req, res) => {

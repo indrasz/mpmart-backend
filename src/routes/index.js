@@ -15,6 +15,8 @@ import {
     deleteCategory,
 } from '../controllers/categoryController.js';
 
+import { getAllPromos, getPromoById, createPromo, updatePromo, deletePromo } from '../controllers/promoController.js';
+
 const router = express.Router();
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -61,6 +63,13 @@ router.get(`${apiUrl}/products/:productId`, getProductById);
 router.post(`${apiUrl}/products`, upload.single('thumbnail'), createProduct);
 router.put(`${apiUrl}/products/:productId`, upload.single('thumbnail'), updateProduct);
 router.delete(`${apiUrl}/products/:productId`, deleteProduct);
+
+
+router.get(`${apiUrl}/promos`, getAllPromos);
+router.get(`${apiUrl}/promos/:promoId`, getPromoById);
+router.post(`${apiUrl}/promos`, upload.single('thumbnail'), createPromo);
+router.put(`${apiUrl}/promos/:promoId`, upload.single('thumbnail'), updatePromo);
+router.delete(`${apiUrl}/promos/:promoId`, deletePromo);
 
 
 export default router;

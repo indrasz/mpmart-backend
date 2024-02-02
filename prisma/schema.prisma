@@ -59,6 +59,7 @@ model Promo {
   id          String   @id @default(uuid())
   name        String
   description String
+  thumbnail   String
   start_date  DateTime
   end_date    DateTime
   created_at  DateTime @default(now())

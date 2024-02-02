@@ -7,7 +7,7 @@ const baseUrl = process.env.BASE_URL;
 export const createCategory = async (req, res) => {
     try {
         const { name } = req.body;
-        const iconThumbnail = req.file.filename; 
+        const iconThumbnail = req.file.filename;
 
         const category = await prisma.category.create({
             data: {
@@ -63,11 +63,20 @@ export const getCategoryById = async (req, res) => {
 export const updateCategory = async (req, res) => {
     try {
         const categoryId = req.params.id;
-        const { name, icon_thumbnail } = req.body;
+        const { name } = req.body;
+        const iconThumbnail = req.file.filename;
+
+        const existingCategory = await prisma.category.findUnique({
+            where: { id: categoryId },
+        });
+
+        if (!existingCategory) {
+            return sendError(res, 'Category not found');
+        }
 
         const updatedCategory = await prisma.category.update({
             where: { id: categoryId },
-            data: { name, icon_thumbnail },
+            data: { name, icon_thumbnail: iconThumbnail, },
         });
 
         sendSuccess(res, 'Category updated successfully', updatedCategory);
@@ -80,6 +89,15 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
     try {
         const categoryId = req.params.id;
+
+        const existingCategory = await prisma.category.findUnique({
+            where: { id: categoryId },
+        });
+
+        if (!existingCategory) {
+            return sendError(res, 'Category not found');
+        }
+
         await prisma.category.delete({
             where: { id: categoryId },
         });
