@@ -20,7 +20,6 @@ export const getAllProducts = async (req, res) => {
         return sendError(res, 'Internal Server Error');
     }
 };
-
 export const getProductById = async (req, res) => {
     try {
         const { productId } = req.params;
@@ -36,6 +35,32 @@ export const getProductById = async (req, res) => {
         return sendError(res, 'Internal Server Error');
     }
 };
+
+export const getProductByCategoryId = async (req, res) => {
+    try {
+        const { categoryId } = req.params;
+
+        const products = await prisma.product.findMany({
+            where: {
+                categories: {
+                    some: {
+                        id: categoryId,
+                    },
+                },
+            },
+        });
+
+        if (!products || products.length === 0) {
+            return sendError(res, 'No products found for the given category ID');
+        }
+
+        return sendSuccess(res, 'Products retrieved successfully', products);
+    } catch (error) {
+        console.error(error);
+        return sendError(res, 'Internal Server Error');
+    }
+};
+
 
 export const createProduct = async (req, res) => {
     try {

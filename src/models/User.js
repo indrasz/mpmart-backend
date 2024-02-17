@@ -10,6 +10,10 @@ export const findUserById = async (id) => {
     return prisma.user.findUnique({ where: { id } });
 }
 
+export const updateUserById = async (id, data) => {
+    return prisma.user.update({ where: { id }, data });
+}
+
 export const findUserByUsername = async (username) => {
     return prisma.user.findUnique({ where: { username } });
 }

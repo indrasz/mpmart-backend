@@ -60,6 +60,7 @@ export const getCategoryById = async (req, res) => {
     }
 };
 
+
 export const updateCategory = async (req, res) => {
     try {
         const categoryId = req.params.id;

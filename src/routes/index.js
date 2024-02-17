@@ -4,9 +4,9 @@ import path from 'path';
 import url from 'url';
 import { sendBadRequest } from '../utils/helper.js';
 import { register, login, logout } from '../controllers/authController.js'
-import { getUserProfile } from '../controllers/userController.js';
+import { getUserProfile, updateUserProfile } from '../controllers/userController.js';
 import { authenticateToken } from '../middleware/index.js';
-import { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct } from '../controllers/productController.js';
+import { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getProductByCategoryId } from '../controllers/productController.js';
 import {
     createCategory,
     getAllCategories,
@@ -49,6 +49,7 @@ router.post(`${apiUrl}/auth/logout`, logout);
 
 //Route for user
 router.get(`${apiUrl}/profile`, authenticateToken, getUserProfile);
+router.put(`${apiUrl}/update-profile/:id`, authenticateToken, updateUserProfile);
 
 //Route for category
 router.post(`${apiUrl}/categories`, upload.single('icon_thumbnail'), createCategory);
@@ -56,6 +57,7 @@ router.get(`${apiUrl}/categories`, getAllCategories);
 router.get(`${apiUrl}/categories/:id`, getCategoryById);
 router.put(`${apiUrl}/categories/:id`, updateCategory);
 router.delete(`${apiUrl}/categories/:id`, deleteCategory);
+router.get(`${apiUrl}/category/:categoryId/products`, getProductByCategoryId);
 
 //Route for product
 router.get(`${apiUrl}/products`, getAllProducts);

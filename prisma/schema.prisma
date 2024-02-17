@@ -13,13 +13,13 @@ datasource db {
 model User {
   id             String            @id @default(uuid())
   username       String            @unique
-  nim            Int               @unique
+  userId         Int?              @unique 
   email          String            @unique
   password       String
-  place_of_birth String
-  date_of_birth  String
+  place_of_birth String?
+  date_of_birth  String?
   phone_number   Int
-  is_male        Boolean
+  is_male        Boolean?
   created_at     DateTime          @default(now())
   updated_at     DateTime          @updatedAt
   vouchers       VouchersOnUsers[]

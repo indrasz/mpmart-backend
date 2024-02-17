@@ -65,7 +65,7 @@ export const createPromo = async (req, res) => {
 export const updatePromo = async (req, res) => {
     try {
         const { promoId } = req.params;
-        const { name, description, start_date, end_date } = req.body;
+        let { name, description, start_date, end_date } = req.body;
         const existingPromo = await prisma.promo.findUnique({
             where: { id: promoId },
         });
@@ -82,8 +82,6 @@ export const updatePromo = async (req, res) => {
             data: {
                 name: name || existingPromo.name,
                 description: description || existingPromo.description,
-                price: parseInt(price) || existingPromo.price,
-                categories: { connect: { id: categoryId } }
             },
         });
 
